@@ -26,7 +26,7 @@ public class Electronics {
 	@Column(name = "Name", nullable = false, length = 500)
 	private String name;
 	
-	@Column(name = "specifications", nullable = false, length = 255)
+	@Column(name = "specifications", nullable = false, columnDefinition = "text")
 	private String specifications;
 	
 	@Column(name = "Warranty", nullable = false)
