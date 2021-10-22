@@ -25,17 +25,6 @@ public class Author {
 	
 	@Column(name = "Biography", nullable = false, length = 255)
 	private String biography;
-	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "authors")
-	private List<Book> books = new ArrayList<>();
-
-	public List<Book> getBooks() {
-		return books;
-	}
-
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
 
 	public int getId() {
 		return id;

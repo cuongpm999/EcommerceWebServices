@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import vn.ptit.entities.book.Author;
 
-
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
