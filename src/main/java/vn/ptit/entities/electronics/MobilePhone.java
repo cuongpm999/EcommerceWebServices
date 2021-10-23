@@ -11,17 +11,15 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Laptop")
+@Table(name="MobilePhone")
 @PrimaryKeyJoinColumn(name="ElectronicsID")
-public class Laptop extends Electronics{
+public class MobilePhone extends Electronics{
 	@Column(name = "Ram", nullable = false, length = 255)
 	private String ram;
 	@Column(name = "Cpu", nullable = false, length = 255)
 	private String cpu;
-	@Column(name = "Card", nullable = false, length = 255)
-	private String card;
-	@Column(name = "HardDrive", nullable = false, length = 255)
-	private String hardDrive;
+	@Column(name = "Camera", nullable = false)
+	private double camera;
 
 	public String getRam() {
 		return ram;
@@ -39,20 +37,12 @@ public class Laptop extends Electronics{
 		this.cpu = cpu;
 	}
 
-	public String getCard() {
-		return card;
+	public double getCamera() {
+		return camera;
 	}
 
-	public void setCard(String card) {
-		this.card = card;
-	}
-
-	public String getHardDrive() {
-		return hardDrive;
-	}
-
-	public void setHardDrive(String hardDrive) {
-		this.hardDrive = hardDrive;
+	public void setCamera(double camera) {
+		this.camera = camera;
 	}
 	
 }
