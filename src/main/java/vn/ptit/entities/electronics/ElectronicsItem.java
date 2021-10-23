@@ -39,6 +39,11 @@ public class ElectronicsItem {
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "electronicsItem", fetch = FetchType.LAZY)
 	private List<ImgElectronicsItem> imgElectronicsItems = new ArrayList<>();
+	
+	public void addImgElectronicsItem(ImgElectronicsItem imgElectronicsItem) {
+		imgElectronicsItems.add(imgElectronicsItem);
+		imgElectronicsItem.setElectronicsItem(this);
+	}
 
 	public String getBarCode() {
 		return barCode;

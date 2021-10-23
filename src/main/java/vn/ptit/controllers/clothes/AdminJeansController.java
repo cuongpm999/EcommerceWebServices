@@ -1,4 +1,4 @@
-package vn.ptit.controllers.admin.book;
+package vn.ptit.controllers.clothes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vn.ptit.entities.book.Book;
-import vn.ptit.repositories.book.BookRepository;
+import vn.ptit.entities.clothes.Jeans;
+import vn.ptit.repositories.clothes.JeansRepository;
 
 @RestController
-@RequestMapping("/rest/api/book")
-public class AdminBookController {
-	@Autowired BookRepository bookRepository;
+@RequestMapping("/rest/api/clothes/jeans")
+public class AdminJeansController {
+	@Autowired JeansRepository jeansRepository;
 	
 	@PostMapping(value = "/insert")
-	public Book insert(@RequestBody Book book, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
-		return bookRepository.save(book);
+	public Jeans insert(@RequestBody Jeans jeans, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		return jeansRepository.save(jeans);
 	}
 }

@@ -1,4 +1,4 @@
-package vn.ptit.controllers.admin.electronics;
+package vn.ptit.controllers.electronics;
 
 import java.util.List;
 
@@ -22,25 +22,26 @@ import vn.ptit.repositories.electronics.ImgElectronicsItemRepository;
 @RestController
 @RequestMapping("/rest/api/electronics-item")
 public class AdminElectronicsItemController {
-	@Autowired ElectronicsItemRepository electronicsItemRepository;
-	@Autowired ImgElectronicsItemRepository imgElectronicsItemRepository;
-	
+	@Autowired
+	ElectronicsItemRepository electronicsItemRepository;
+	@Autowired
+	ImgElectronicsItemRepository imgElectronicsItemRepository;
+
 	@GetMapping(value = "/find-all")
 	public List<ElectronicsItem> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
 
 		return electronicsItemRepository.findAll();
 	}
-	
+
 	@PostMapping(value = "/insert")
-	public ElectronicsItem insert(@RequestBody ElectronicsItem electronicsItem, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+	public ElectronicsItem insert(@RequestBody ElectronicsItem electronicsItem, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+		
+		for (int i = 0; i < electronicsItem.getImgElectronicsItems().size(); i++) {
+			electronicsItem.getImgElectronicsItems().get(i).setElectronicsItem(electronicsItem);
+		}
 
 		return electronicsItemRepository.save(electronicsItem);
 	}
-	
-	@PostMapping(value = "/img/insert")
-	public ImgElectronicsItem insertImg(@RequestBody ImgElectronicsItem imgElectronicsItem, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
 
-		return imgElectronicsItemRepository.save(imgElectronicsItem);
-	}
-	
 }
