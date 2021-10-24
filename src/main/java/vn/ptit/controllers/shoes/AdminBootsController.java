@@ -1,4 +1,4 @@
-package vn.ptit.controllers.admin.electronics;
+package vn.ptit.controllers.shoes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vn.ptit.entities.electronics.Laptop;
-import vn.ptit.repositories.electronics.LaptopRepository;
+import vn.ptit.entities.shoes.Boots;
+import vn.ptit.repositories.shoes.BootsRepository;
 
 @RestController
-@RequestMapping("/rest/api/electronics/laptop")
-public class AdminLaptopController {
-	@Autowired LaptopRepository laptopRepository;
+@RequestMapping("/rest/api/shoes/boots")
+public class AdminBootsController {
+
+	@Autowired BootsRepository bootsRepository;
 	
 	@PostMapping(value = "/insert")
-	public Laptop insert(@RequestBody Laptop laptop, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
-
-		return laptopRepository.save(laptop);
+	public Boots insert(@RequestBody Boots boots, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		return bootsRepository.save(boots);
 	}
 }

@@ -1,4 +1,4 @@
-package vn.ptit.controllers.admin.book;
+package vn.ptit.controllers.book;
 
 import java.util.List;
 
@@ -15,21 +15,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.ptit.entities.book.BookItem;
 import vn.ptit.repositories.book.BookItemRepository;
+import vn.ptit.repositories.book.ImgBookItemRepository;
 
 @RestController
 @RequestMapping("/rest/api/book-item")
 public class AdminBookItemController {
-	
-	@Autowired BookItemRepository bookItemRepository;
-	
+
+	@Autowired
+	BookItemRepository bookItemRepository;
+
+	@Autowired
+	ImgBookItemRepository imgBookItemRepository;
+
 	@PostMapping(value = "/insert")
-	public BookItem insert(@RequestBody BookItem bookItem, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+	public BookItem insert(@RequestBody BookItem bookItem, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+		for (int i = 0; i < bookItem.getImgBookItems().size(); i++) {
+			bookItem.getImgBookItems().get(i).setBookItem(bookItem);
+		}
 		return bookItemRepository.save(bookItem);
 	}
-	
+
 	@GetMapping(value = "/find-all")
 	public List<BookItem> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
 		return bookItemRepository.findAll();
 	}
-	
+
 }

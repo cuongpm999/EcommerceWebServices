@@ -1,4 +1,4 @@
-package vn.ptit.entities.book;
+package vn.ptit.entities.electronics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -16,13 +17,13 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "BookItem")
-public class BookItem {
+@Table(name = "ElectronicsItem")
+public class ElectronicsItem {
 	@Id
 	@Column(name = "BarCode", length = 255)
 	private String barCode;
 	
-	@Column(name = "Price", nullable = false)
+	@Column(name = "Price")
 	private double price;
 	
 	@Column(name = "Discount")
@@ -32,29 +33,16 @@ public class BookItem {
 	private String slug;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BookID")
-	private Book book;
+	@JoinColumn(name = "ElectronicsID")
+	private Electronics electronics;
 	
 	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "bookItem", fetch = FetchType.LAZY)
-	private List<ImgBookItem> imgBookItems = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "electronicsItem", fetch = FetchType.LAZY)
+	private List<ImgElectronicsItem> imgElectronicsItems = new ArrayList<>();
 	
-	public List<ImgBookItem> getImgBookItems() {
-		return imgBookItems;
-	}
-
-	public void setImgBookItems(List<ImgBookItem> imgBookItems) {
-		this.imgBookItems = imgBookItems;
-	}
-
-	public void addImgBookItem(ImgBookItem imgBookItem) {
-		imgBookItems.add(imgBookItem);
-		imgBookItem.setBookItem(this);
-	}
-
-	public void removeImgBookItem(ImgBookItem imgBookItem) {
-		imgBookItems.remove(imgBookItem);
-		imgBookItem.setBookItem(null);
+	public void addImgElectronicsItem(ImgElectronicsItem imgElectronicsItem) {
+		imgElectronicsItems.add(imgElectronicsItem);
+		imgElectronicsItem.setElectronicsItem(this);
 	}
 
 	public String getBarCode() {
@@ -89,13 +77,20 @@ public class BookItem {
 		this.slug = slug;
 	}
 
-	public Book getBook() {
-		return book;
+	public Electronics getElectronics() {
+		return electronics;
 	}
 
-	public void setBook(Book book) {
-		this.book = book;
+	public void setElectronics(Electronics electronics) {
+		this.electronics = electronics;
 	}
-	
-	
+
+	public List<ImgElectronicsItem> getImgElectronicsItems() {
+		return imgElectronicsItems;
+	}
+
+	public void setImgElectronicsItems(List<ImgElectronicsItem> imgElectronicsItems) {
+		this.imgElectronicsItems = imgElectronicsItems;
+	}
+
 }

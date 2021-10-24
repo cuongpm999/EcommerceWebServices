@@ -1,4 +1,4 @@
-package vn.ptit.entities.book;
+package vn.ptit.entities.electronics;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,26 +13,26 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "ImgBookItem")
-public class ImgBookItem {
+@Table(name = "ImgElectronicsItem")
+public class ImgElectronicsItem {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	// tự động tăng id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
 	
-	@Column(name = "Name", nullable = false, length = 100)
+	@Column(name = "Name", length = 100, nullable = false)
 	private String name;
-	
-	@Column(name = "Path", nullable = false, length = 100)
+
+	@Column(name = "Path", length = 100, nullable = false)
 	private String path;
-	
-	@Column(name = "Mime", nullable = false, length = 100)
+
+	@Column(name = "Mime", length = 100, nullable = false)
 	private String mime;
 	
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "BookItemBarCode")
-	private BookItem bookItem;
+	@JoinColumn(name = "ElectronicsItemBarCode")
+	private ElectronicsItem electronicsItem;
 
 	public int getId() {
 		return id;
@@ -66,12 +66,12 @@ public class ImgBookItem {
 		this.mime = mime;
 	}
 
-	public BookItem getBookItem() {
-		return bookItem;
+	public ElectronicsItem getElectronicsItem() {
+		return electronicsItem;
 	}
 
-	public void setBookItem(BookItem bookItem) {
-		this.bookItem = bookItem;
+	public void setElectronicsItem(ElectronicsItem electronicsItem) {
+		this.electronicsItem = electronicsItem;
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-package vn.ptit.controllers.admin.clothes;
+package vn.ptit.controllers.shoes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vn.ptit.entities.clothes.Jeans;
-import vn.ptit.repositories.clothes.JeansRepository;
+import vn.ptit.entities.shoes.HighHeels;
+import vn.ptit.repositories.shoes.HighHeelsRepository;
 
 @RestController
-@RequestMapping("/rest/api/clothes/jeans")
-public class AdminJeansController {
-	@Autowired JeansRepository jeansRepository;
+@RequestMapping("/rest/api/shoes/highheels")
+public class AdminHighHeelsController {
+	
+	@Autowired HighHeelsRepository highHeelsRepository;
 	
 	@PostMapping(value = "/insert")
-	public Jeans insert(@RequestBody Jeans jeans, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
-		return jeansRepository.save(jeans);
+	public HighHeels insert(@RequestBody HighHeels highheels, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		return highHeelsRepository.save(highheels);
 	}
 }
