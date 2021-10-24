@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "ClothesItem")
 public class ClothesItem {
@@ -33,15 +35,16 @@ public class ClothesItem {
 	@JoinColumn(name = "ClothesID")
 	private Clothes clothes;
 
-	
+	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clothesItem", fetch = FetchType.EAGER)
 	private List<ImgClothesItem> imgClothesItems = new ArrayList<>();
 	
-	public List<ImgClothesItem> getImgProducts() {
+
+	public List<ImgClothesItem> getImgClothesItems() {
 		return imgClothesItems;
 	}
 
-	public void setImgProducts(List<ImgClothesItem> imgClothesItems) {
+	public void setImgClothesItems(List<ImgClothesItem> imgClothesItems) {
 		this.imgClothesItems = imgClothesItems;
 	}
 

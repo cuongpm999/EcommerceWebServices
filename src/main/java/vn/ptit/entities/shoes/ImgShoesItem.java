@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "ImgShoesItem")
 public class ImgShoesItem {
@@ -25,8 +27,9 @@ public class ImgShoesItem {
 	private String path;
 	
 	@Column(name = "Mime", nullable = false, length = 100)
-	private String mine;
+	private String mime;
 	
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ShoesItemBarCode")
 	private ShoesItem shoesItem;
@@ -55,12 +58,12 @@ public class ImgShoesItem {
 		this.path = path;
 	}
 
-	public String getMine() {
-		return mine;
+	public String getMime() {
+		return mime;
 	}
 
-	public void setMine(String mine) {
-		this.mine = mine;
+	public void setMime(String mime) {
+		this.mime = mime;
 	}
 
 	public ShoesItem getShoesItem() {

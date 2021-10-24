@@ -1,4 +1,4 @@
-package vn.ptit.entities.shoes;
+package vn.ptit.entities.electronics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,49 +9,42 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import vn.ptit.entities.clothes.ImgClothesItem;
-
 @Entity
-@Table(name = "ShoesItem")
-public class ShoesItem {
+@Table(name = "ElectronicsItem")
+public class ElectronicsItem {
 	@Id
-	@Column(name="BarCode", nullable = false, length = 255)
+	@Column(name = "BarCode", length = 255)
 	private String barCode;
 	
-	@Column(name="Price", nullable = false)
+	@Column(name = "Price")
 	private double price;
 	
-	@Column(name="Discount", nullable = true)
+	@Column(name = "Discount")
 	private double discount;
 	
-	@Column(name="Slug", nullable = false, length = 1000)
+	@Column(name = "Slug", nullable = false, length = 1000)
 	private String slug;
-
+	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ShoesID")
-	private Shoes shoes;
+	@JoinColumn(name = "ElectronicsID")
+	private Electronics electronics;
 	
 	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoesItem", fetch = FetchType.EAGER)
-	private List<ImgShoesItem> imgShoesItems = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "electronicsItem", fetch = FetchType.LAZY)
+	private List<ImgElectronicsItem> imgElectronicsItems = new ArrayList<>();
 	
-	
-
-	public void addImgShoesItem(ImgShoesItem imgShoesItem) {
-		imgShoesItems.add(imgShoesItem);
-		imgShoesItem.setShoesItem(this);
+	public void addImgElectronicsItem(ImgElectronicsItem imgElectronicsItem) {
+		imgElectronicsItems.add(imgElectronicsItem);
+		imgElectronicsItem.setElectronicsItem(this);
 	}
 
-	public void removeImgShoesItem(ImgShoesItem imgShoesItem) {
-		imgShoesItems.remove(imgShoesItem);
-		imgShoesItem.setShoesItem(null);
-	}
 	public String getBarCode() {
 		return barCode;
 	}
@@ -84,20 +77,20 @@ public class ShoesItem {
 		this.slug = slug;
 	}
 
-	public Shoes getShoes() {
-		return shoes;
+	public Electronics getElectronics() {
+		return electronics;
 	}
 
-	public void setShoes(Shoes shoes) {
-		this.shoes = shoes;
+	public void setElectronics(Electronics electronics) {
+		this.electronics = electronics;
 	}
 
-	public List<ImgShoesItem> getImgShoesItems() {
-		return imgShoesItems;
+	public List<ImgElectronicsItem> getImgElectronicsItems() {
+		return imgElectronicsItems;
 	}
 
-	public void setImgShoesItems(List<ImgShoesItem> imgShoesItems) {
-		this.imgShoesItems = imgShoesItems;
+	public void setImgElectronicsItems(List<ImgElectronicsItem> imgElectronicsItems) {
+		this.imgElectronicsItems = imgElectronicsItems;
 	}
-	
+
 }

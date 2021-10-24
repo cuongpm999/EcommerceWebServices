@@ -1,4 +1,4 @@
-package vn.ptit.controllers.admin.electronics;
+package vn.ptit.controllers.electronics;
 
 import java.util.List;
 
