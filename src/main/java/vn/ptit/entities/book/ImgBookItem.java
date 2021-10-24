@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class ImgBookItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	// tự động tăng id
-	@Column(name = "id")
+	@Column(name = "ID")
 	private int id;
 	
 	@Column(name = "Name", nullable = false, length = 100)
@@ -26,4 +26,49 @@ public class ImgBookItem {
 	
 	@Column(name = "Mime", nullable = false, length = 100)
 	private String mime;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "BookItemBarCode")
+	private BookItem bookItem;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getMime() {
+		return mime;
+	}
+
+	public void setMime(String mime) {
+		this.mime = mime;
+	}
+
+	public BookItem getBookItem() {
+		return bookItem;
+	}
+
+	public void setBookItem(BookItem bookItem) {
+		this.bookItem = bookItem;
+	}
+	
 }
