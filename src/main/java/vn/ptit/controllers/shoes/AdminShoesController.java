@@ -30,7 +30,7 @@ public class AdminShoesController {
 	@Autowired BootsRepository bootsRepository;
 	@Autowired HighHeelsRepository highHeelsRepository;
 	
-	@GetMapping(value = "find-all")
+	@GetMapping(value = "/find-all")
 	public List<Shoes> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp){
 		return shoesRepository.findAll();
 	}
