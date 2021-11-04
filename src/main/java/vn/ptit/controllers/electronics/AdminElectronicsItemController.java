@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class AdminElectronicsItemController {
 	public List<ElectronicsItem> findAllInCategory(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
 			HttpServletResponse resp) {
 
-		return electronicsService.filterBuyCategory(filterMap);
+		return electronicsService.findByCategory(filterMap);
 	}
 
 	@PostMapping(value = "/insert")
@@ -95,5 +96,18 @@ public class AdminElectronicsItemController {
 
 		return electronicsItemRepository.findAll();
 	}
+	
+	@GetMapping(value = "/{slug}")
+	public ElectronicsItem getElectronicsItemBySlug(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		
+		return electronicsService.getElectronicsItemBySlug(slug).get(0);
+	}
+	
+	@GetMapping(value = "/same-item/{slug}")
+	public List<ElectronicsItem> getSameElectronicsItem(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		
+		return electronicsService.getSameElectronicsItem(slug);
+	}
+
 
 }
