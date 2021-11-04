@@ -1,5 +1,6 @@
 package vn.ptit.controllers.clothes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,31 +17,74 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.ptit.repositories.clothes.ClothesItemRepository;
 import vn.ptit.services.ClothesService;
-import vn.ptit.entities.clothes.ClothesItem;
+import vn.ptit.utils.FilterMap;
+import vn.ptit.entities.clothes.*;
+import vn.ptit.entities.electronics.ElectronicsItem;
 
 @RestController
 @RequestMapping("/rest/api/clothes-item")
 public class AdminClothesItemController {
-	@Autowired ClothesItemRepository clothesItemRepository;
-	@Autowired ClothesService clothesService;
+	@Autowired
+	ClothesItemRepository clothesItemRepository;
+	@Autowired
+	ClothesService clothesService;
+
 	@GetMapping(value = "/find-all")
-	public List<ClothesItem> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp){
+	public List<ClothesItem> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
 		return clothesItemRepository.findAll();
 	}
-	
+	@PostMapping(value = "/find-all-in-category")
+	public List<ClothesItem> findAllInCategory(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		return clothesService.findByCategory(filterMap);
+	}
 	@PostMapping(value = "/slug")
-	public ClothesItem getClothesItemBySlug(@RequestBody String slug){
+	public ClothesItem getClothesItemBySlug(@RequestBody String slug) {
+		return clothesService.getClothesItemBySlug(slug).get(0);
+	}
+
+	@GetMapping(value = "/{slug}")
+	public ClothesItem getClothesItemBySlug1(@PathVariable("slug") String slug) {
 		return clothesService.getClothesItemBySlug(slug).get(0);
 	}
 	
-	@GetMapping(value="/{slug}")
-	public ClothesItem getClIBySlug(@PathVariable("slug") String slug) {
-		return clothesService.getClothesItemBySlug(slug).get(0);
+	@GetMapping(value = "/get-4-clothes-item/{slug}")
+	public List<ClothesItem> get4ClothesItemBySlug(@PathVariable("slug") String slug) {
+		return clothesService.get4ClothesItemBySlug(slug);
 	}
 	
+
+	@PostMapping(value = "/find-by-category")
+	public List<ClothesItem> filterByCategory(@RequestBody List<FilterMap> filterMap) {
+		List<ClothesItem> clothesItems = clothesService.findByCategory(filterMap);
+		List<ClothesItem> itemByCategory = new ArrayList<>();
+		if (filterMap.get(0).getValue().equalsIgnoreCase("jeans")) {
+			for (ClothesItem clothesItem : clothesItems) {
+				if (clothesItem.getClothes() instanceof Jeans) {
+					itemByCategory.add(clothesItem);
+				}
+			}
+		} else if (filterMap.get(0).getValue().equalsIgnoreCase("dresses")) {
+			for (ClothesItem clothesItem : clothesItems) {
+				if (clothesItem.getClothes() instanceof Dresses) {
+					itemByCategory.add(clothesItem);
+				}
+			}
+		} else if (filterMap.get(0).getValue().equalsIgnoreCase("swimwear")) {
+			for (ClothesItem clothesItem : clothesItems) {
+				if (clothesItem.getClothes() instanceof SwimWear) {
+					itemByCategory.add(clothesItem);
+				}
+			}
+		}
+		return itemByCategory;
+	}
+
 	@PostMapping(value = "/insert")
-	public ClothesItem insert(@RequestBody ClothesItem clothesItem, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
-		for(int i=0;i<clothesItem.getImgClothesItems().size();i++) {
+	public ClothesItem insert(@RequestBody ClothesItem clothesItem, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+		for (int i = 0; i < clothesItem.getImgClothesItems().size(); i++) {
 			clothesItem.getImgClothesItems().get(i).setClothesItem(clothesItem);
 		}
 		return clothesItemRepository.save(clothesItem);

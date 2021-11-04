@@ -1,44 +1,41 @@
 package vn.ptit.services;
 
-import javax.persistence.Query;
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
 
-import vn.ptit.entities.clothes.Clothes;
-import vn.ptit.entities.clothes.ClothesItem;
-import vn.ptit.entities.electronics.ElectronicsItem;
+import vn.ptit.entities.shoes.ShoesItem;
 import vn.ptit.utils.FilterMap;
 
 @Service
-public class ClothesService {
+public class ShoesService {
 	@PersistenceContext
 	EntityManager entityManager;
-
-	public List<ClothesItem> getClothesItemBySlug(String slug) {
-		String jpql = "SELECT c FROM ClothesItem c";
+	
+	public List<ShoesItem> getShoesItemBySlug(String slug) {
+		String jpql = "SELECT c FROM ShoesItem c";
 		if (!slug.isEmpty()) {
 			jpql += " WHERE c.slug = '" + slug + "'";
 		}
-		Query query = entityManager.createQuery(jpql, ClothesItem.class);
+		Query query = entityManager.createQuery(jpql, ShoesItem.class);
 		return query.getResultList();
 	}
 
-	public List<ClothesItem> get4ClothesItemBySlug(String slug) {
-		String jpql = "SELECT c FROM ClothesItem c";
+	public List<ShoesItem> get4CShoesItemBySlug(String slug) {
+		String jpql = "SELECT c FROM ShoesItem c";
 		if (!slug.isEmpty()) {
 			jpql += " WHERE c.slug <> '" + slug + "' order by rand()";
 		}
-		Query query = entityManager.createQuery(jpql, ClothesItem.class);
+		Query query = entityManager.createQuery(jpql, ShoesItem.class);
 		return query.setMaxResults(4).getResultList();
 	}
 	
-	public List<ClothesItem> findByCategory(List<FilterMap> list) {
-		String jpql = "select p from ClothesItem p where 1=1";
+	public List<ShoesItem> findByCategory(List<FilterMap> list) {
+		String jpql = "select p from ShoesItem p where 1=1";
 		for (FilterMap filterMap : list) {
 			if (filterMap.getKey().equalsIgnoreCase("sort")) {
 				if (filterMap.getValue().equalsIgnoreCase("low-to-high")) {
@@ -64,15 +61,14 @@ public class ClothesService {
 
 				}
 			} else if (filterMap.getKey().equalsIgnoreCase("color")) {
-				jpql += " and p.clothes." + filterMap.getKey() + "='" + filterMap.getValue() + "'";
+				jpql += " and p.shoes." + filterMap.getKey() + "='" + filterMap.getValue() + "'";
 			} else if (filterMap.getKey().equalsIgnoreCase("style")) {
-				jpql += " and p.clothes." + filterMap.getKey() + "='" + filterMap.getValue() + "'";
+				jpql += " and p.shoes." + filterMap.getKey() + "='" + filterMap.getValue() + "'";
 			} else if (filterMap.getKey().equalsIgnoreCase("material")) {
-				jpql += " and p.clothes." + filterMap.getKey() + "='" + filterMap.getValue() + "'";
+				jpql += " and p.shoes." + filterMap.getKey() + "='" + filterMap.getValue() + "'";
 			}
 		}
-		Query query = entityManager.createQuery(jpql, ClothesItem.class);
+		Query query = entityManager.createQuery(jpql, ShoesItem.class);
 		return query.getResultList();
 	}
-
 }
