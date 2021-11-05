@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.ptit.entities.book.BookItem;
 import vn.ptit.repositories.book.BookItemRepository;
 import vn.ptit.repositories.book.ImgBookItemRepository;
+import vn.ptit.services.BookService;
 
 @RestController
 @RequestMapping("/rest/api/book-item")
@@ -26,6 +27,9 @@ public class AdminBookItemController {
 
 	@Autowired
 	ImgBookItemRepository imgBookItemRepository;
+	
+	@Autowired
+	BookService bookService;
 
 	@PostMapping(value = "/insert")
 	public BookItem insert(@RequestBody BookItem bookItem, ModelMap model, HttpServletRequest req,
@@ -37,8 +41,13 @@ public class AdminBookItemController {
 	}
 
 	@GetMapping(value = "/find-all")
-	public List<BookItem> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+	public List<BookItem> findAll() {
 		return bookItemRepository.findAll();
+	}
+	
+	@PostMapping(value = "/slug")
+	public BookItem getBookItemBySlug(@RequestBody String slug) {
+		return bookService.getBookItemBySlug(slug).get(0);
 	}
 
 }
