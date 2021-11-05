@@ -19,6 +19,7 @@ import vn.ptit.entities.electronics.ElectronicsItem;
 import vn.ptit.repositories.book.BookItemRepository;
 import vn.ptit.repositories.book.ImgBookItemRepository;
 import vn.ptit.services.BookService;
+import vn.ptit.utils.FilterMap;
 
 @RestController
 @RequestMapping("/rest/api/book-item")
@@ -32,6 +33,20 @@ public class AdminBookItemController {
 	
 	@Autowired
 	BookService bookService;
+	
+	@PostMapping(value = "/find-by-author")
+	public List<BookItem> findByAuthor(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		return bookService.findByAuthor(filterMap);
+	}
+	
+	@PostMapping(value = "/find-by-publisher")
+	public List<BookItem> findByPublisher(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		return bookService.findByPublisher(filterMap);
+	}
 
 	@PostMapping(value = "/insert")
 	public BookItem insert(@RequestBody BookItem bookItem, ModelMap model, HttpServletRequest req,
