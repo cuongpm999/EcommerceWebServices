@@ -8,14 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.ptit.entities.book.BookItem;
+import vn.ptit.entities.electronics.ElectronicsItem;
 import vn.ptit.repositories.book.BookItemRepository;
 import vn.ptit.repositories.book.ImgBookItemRepository;
+import vn.ptit.services.BookService;
+import vn.ptit.utils.FilterMap;
 
 @RestController
 @RequestMapping("/rest/api/book-item")
@@ -26,6 +30,23 @@ public class AdminBookItemController {
 
 	@Autowired
 	ImgBookItemRepository imgBookItemRepository;
+	
+	@Autowired
+	BookService bookService;
+	
+	@PostMapping(value = "/find-by-author")
+	public List<BookItem> findByAuthor(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		return bookService.findByAuthor(filterMap);
+	}
+	
+	@PostMapping(value = "/find-by-publisher")
+	public List<BookItem> findByPublisher(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		return bookService.findByPublisher(filterMap);
+	}
 
 	@PostMapping(value = "/insert")
 	public BookItem insert(@RequestBody BookItem bookItem, ModelMap model, HttpServletRequest req,
@@ -37,8 +58,20 @@ public class AdminBookItemController {
 	}
 
 	@GetMapping(value = "/find-all")
-	public List<BookItem> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+	public List<BookItem> findAll() {
 		return bookItemRepository.findAll();
+	}
+	
+	@GetMapping(value = "/{slug}")
+	public BookItem getBookItemBySlug(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		
+		return bookService.getBookItemBySlug(slug).get(0);
+	}
+	
+	@GetMapping(value = "/same-item/{slug}")
+	public List<BookItem> getSameBookItem(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		
+		return bookService.getSameBookItem(slug);
 	}
 
 }
