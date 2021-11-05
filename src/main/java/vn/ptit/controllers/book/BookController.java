@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vn.ptit.entities.book.Publisher;
-import vn.ptit.repositories.book.PublisherRepository;
+import vn.ptit.entities.book.Book;
+import vn.ptit.repositories.book.BookRepository;
 
 @RestController
-@RequestMapping("/rest/api/publisher")
-public class AdminPublisherController {
-	@Autowired PublisherRepository publisherRepository;
-
+@RequestMapping("/rest/api/book")
+public class BookController {
+	@Autowired BookRepository bookRepository;
+	
 	@PostMapping(value = "/insert")
-	public Publisher insert(@RequestBody Publisher publisher, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
-		return publisherRepository.save(publisher);
+	public Book insert(@RequestBody Book book, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		return bookRepository.save(book);
 	}
-
+	
 	@GetMapping(value = "/find-all")
-	public List<Publisher> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
-		return publisherRepository.findAll();
+	public List<Book> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		return bookRepository.findAll();
 	}
 }

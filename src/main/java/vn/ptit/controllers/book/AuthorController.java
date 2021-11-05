@@ -18,7 +18,7 @@ import vn.ptit.repositories.book.AuthorRepository;
 
 @RestController
 @RequestMapping("/rest/api/author")
-public class AdminAuthorController {
+public class AuthorController {
 	@Autowired AuthorRepository authorRepository;
 	
 	@PostMapping(value = "/insert")

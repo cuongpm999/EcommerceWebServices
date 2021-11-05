@@ -25,7 +25,7 @@ import vn.ptit.repositories.electronics.TiviRepository;
 
 @RestController
 @RequestMapping("/rest/api/electronics")
-public class AdminElectronicsController {
+public class ElectronicsController {
 	@Autowired ElectronicsRepository electronicsRepository;
 	@Autowired LaptopRepository laptopRepository;
 	@Autowired TiviRepository tiviRepository;

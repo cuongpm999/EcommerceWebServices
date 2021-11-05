@@ -23,7 +23,7 @@ import vn.ptit.utils.FilterMap;
 
 @RestController
 @RequestMapping("/rest/api/book-item")
-public class AdminBookItemController {
+public class BookItemController {
 
 	@Autowired
 	BookItemRepository bookItemRepository;

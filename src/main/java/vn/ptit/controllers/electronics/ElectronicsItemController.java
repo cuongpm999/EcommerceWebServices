@@ -28,7 +28,7 @@ import vn.ptit.utils.FilterMap;
 
 @RestController
 @RequestMapping("/rest/api/electronics-item")
-public class AdminElectronicsItemController {
+public class ElectronicsItemController {
 	@Autowired
 	ElectronicsItemRepository electronicsItemRepository;
 	@Autowired

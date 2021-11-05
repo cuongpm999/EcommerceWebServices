@@ -23,7 +23,7 @@ import vn.ptit.entities.electronics.ElectronicsItem;
 
 @RestController
 @RequestMapping("/rest/api/clothes-item")
-public class AdminClothesItemController {
+public class ClothesItemController {
 	@Autowired
 	ClothesItemRepository clothesItemRepository;
 	@Autowired

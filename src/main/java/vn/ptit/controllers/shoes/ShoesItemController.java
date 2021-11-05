@@ -26,7 +26,7 @@ import vn.ptit.utils.FilterMap;
 
 @RestController
 @RequestMapping("/rest/api/shoes-item")
-public class AdminShoesItemController {
+public class ShoesItemController {
 
 	@Autowired ShoesItemRepository shoesItemRepository;
 	

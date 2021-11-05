@@ -29,7 +29,7 @@ import vn.ptit.repositories.shoes.SneakerRepository;
 
 @RestController
 @RequestMapping("/rest/api/shoes")
-public class AdminShoesController {
+public class ShoesController {
 	@Autowired ShoesRepository shoesRepository;
 	@Autowired SneakerRepository sneakerRepository;
 	@Autowired BootsRepository bootsRepository;

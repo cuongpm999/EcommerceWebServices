@@ -26,7 +26,7 @@ import vn.ptit.entities.clothes.SwimWear;
 
 @RestController
 @RequestMapping("/rest/api/clothes")
-public class AdminClothesController {
+public class ClothesController {
 	@Autowired ClothesRepository clothesRepository;
 	@Autowired DressesRepository dressesRepository;
 	@Autowired JeansRepository jeansRepository;

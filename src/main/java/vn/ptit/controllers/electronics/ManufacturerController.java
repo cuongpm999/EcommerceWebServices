@@ -19,7 +19,7 @@ import vn.ptit.repositories.electronics.ManufacturerRepository;
 
 @RestController
 @RequestMapping("/rest/api/manufacturer")
-public class AdminManufacturerController {
+public class ManufacturerController {
 	@Autowired ManufacturerRepository manufacturerRepository;
 	
 	@GetMapping(value = "/find-all")
