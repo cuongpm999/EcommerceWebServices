@@ -1,6 +1,7 @@
 package vn.ptit.controllers.shoes;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,11 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.ptit.entities.clothes.Dresses;
+import vn.ptit.entities.clothes.Jeans;
+import vn.ptit.entities.clothes.SwimWear;
 import vn.ptit.entities.shoes.Boots;
 import vn.ptit.entities.shoes.HighHeels;
 import vn.ptit.entities.shoes.Shoes;
@@ -45,5 +50,32 @@ public class AdminShoesController {
 	@PostMapping(value = "/highheels/insert")
 	public HighHeels insert(@RequestBody HighHeels highheels, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
 		return highHeelsRepository.save(highheels);
+	}
+	
+	@GetMapping(value = "/boots/{id}")
+	public Boots findBootsById(@PathVariable("id") int id) {
+		Optional<Boots> optBoots = bootsRepository.findById(id);
+		if(optBoots.isPresent()) {
+			return optBoots.get();
+		}
+		return null;
+	}
+	
+	@GetMapping(value = "/sneaker/{id}")
+	public Sneaker findSneakerById(@PathVariable("id") int id) {
+		Optional<Sneaker> optSneaker = sneakerRepository.findById(id);
+		if(optSneaker.isPresent()) {
+			return optSneaker.get();
+		}
+		return null;
+	}
+	
+	@GetMapping(value = "/highheels/{id}")
+	public HighHeels findHighHeelsById(@PathVariable("id") int id) {
+		Optional<HighHeels> optHighHeels = highHeelsRepository.findById(id);
+		if(optHighHeels.isPresent()) {
+			return optHighHeels.get();
+		}
+		return null;
 	}
 }
