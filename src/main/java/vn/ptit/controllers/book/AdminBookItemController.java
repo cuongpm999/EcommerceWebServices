@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.ptit.entities.book.BookItem;
+import vn.ptit.entities.electronics.ElectronicsItem;
 import vn.ptit.repositories.book.BookItemRepository;
 import vn.ptit.repositories.book.ImgBookItemRepository;
 import vn.ptit.services.BookService;
@@ -45,9 +47,16 @@ public class AdminBookItemController {
 		return bookItemRepository.findAll();
 	}
 	
-	@PostMapping(value = "/slug")
-	public BookItem getBookItemBySlug(@RequestBody String slug) {
+	@GetMapping(value = "/{slug}")
+	public BookItem getBookItemBySlug(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		
 		return bookService.getBookItemBySlug(slug).get(0);
+	}
+	
+	@GetMapping(value = "/same-item/{slug}")
+	public List<BookItem> getSameBookItem(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
+		
+		return bookService.getSameBookItem(slug);
 	}
 
 }

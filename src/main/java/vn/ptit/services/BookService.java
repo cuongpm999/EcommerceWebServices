@@ -29,4 +29,17 @@ public class BookService {
 		Query query = entityManager.createQuery(jpql, BookItem.class);
 		return query.getResultList();
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<BookItem> getSameBookItem(String slug) {
+		String jpql = "select p from BookItem p";
+		if (slug != null) {
+			jpql += " where p.slug <> '" + slug + "'order by rand ()";
+		}
+
+		Query query = entityManager.createQuery(jpql, BookItem.class);
+		query.setMaxResults(4);
+
+		return query.getResultList();
+	}
 }
