@@ -9,9 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Service;
 
-import vn.ptit.entities.clothes.Clothes;
 import vn.ptit.entities.clothes.ClothesItem;
-import vn.ptit.entities.electronics.ElectronicsItem;
 import vn.ptit.utils.FilterMap;
 
 @Service
@@ -75,4 +73,11 @@ public class ClothesService {
 		return query.getResultList();
 	}
 
+	public List<ClothesItem> findByName(String name){
+		String jpql = "SELECT p FROM ClothesItem p";
+		jpql += " WHERE p.clothes.name LIKE '%" + name + "%'";
+		Query query = entityManager.createQuery(jpql, ClothesItem.class);
+		return query.getResultList();
+	}
+	
 }

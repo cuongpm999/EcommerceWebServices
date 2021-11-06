@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.ptit.entities.book.BookItem;
-import vn.ptit.entities.electronics.ElectronicsItem;
 import vn.ptit.repositories.book.BookItemRepository;
 import vn.ptit.repositories.book.ImgBookItemRepository;
 import vn.ptit.services.BookService;
@@ -72,6 +71,11 @@ public class BookItemController {
 	public List<BookItem> getSameBookItem(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
 		
 		return bookService.getSameBookItem(slug);
+	}
+	
+	@GetMapping(value = "/find-by-name/{name}")
+	public List<BookItem> BookItem(@PathVariable("name") String name) {
+		return bookService.findByName(name);
 	}
 
 }

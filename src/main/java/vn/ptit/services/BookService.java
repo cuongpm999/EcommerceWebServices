@@ -102,4 +102,11 @@ public class BookService {
 
 		return query.getResultList();
 	}
+	
+	public List<BookItem> findByName(String name){
+		String jpql = "SELECT p FROM BookItem p";
+		jpql += " WHERE p.book.title LIKE '%" + name + "%'";
+		Query query = entityManager.createQuery(jpql, BookItem.class);
+		return query.getResultList();
+	}
 }

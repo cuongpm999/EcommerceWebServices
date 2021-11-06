@@ -8,7 +8,6 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
 
-import vn.ptit.entities.electronics.Electronics;
 import vn.ptit.entities.electronics.ElectronicsItem;
 import vn.ptit.utils.FilterMap;
 
@@ -124,6 +123,13 @@ public class ElectronicsService {
 		Query query = entityManager.createQuery(jpql, ElectronicsItem.class);
 		query.setMaxResults(4);
 
+		return query.getResultList();
+	}
+	
+	public List<ElectronicsItem> findByName(String name){
+		String jpql = "SELECT p FROM ElectronicsItem p";
+		jpql += " WHERE p.electronics.name LIKE '%" + name + "%'";
+		Query query = entityManager.createQuery(jpql, ElectronicsItem.class);
 		return query.getResultList();
 	}
 }
