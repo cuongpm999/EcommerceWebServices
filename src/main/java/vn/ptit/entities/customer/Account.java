@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "Account")
 public class Account {
@@ -22,6 +24,7 @@ public class Account {
 	@Column(name = "Password", nullable = false, length = 255)
 	private String password;
 	
+	@JsonBackReference
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CustomerMemberID")
 	private CustomerMember customerMember;
