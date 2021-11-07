@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "FullName")
 public class FullName {
@@ -24,6 +26,7 @@ public class FullName {
 	@Column(name = "LastName", nullable = false, length = 255)
 	private String lastName;
 	
+	@JsonBackReference
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CustomerID")
 	private Customer customer;

@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "Customer")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -30,11 +32,25 @@ public class Customer {
 	private String mobile;
 	@Column(name = "DateOfBirth")
 	private Date dateOfBirth;
+	@Column(name = "Email", length = 255)
+	private String email;
 	
+	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.EAGER)
 	private FullName fullName;
+	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.EAGER)
 	private Address address;
+	
+	public void addAddress(Address address) {
+		this.address = address;
+		address.setCustomer(this);
+	}
+	
+	public void addFullName(FullName fullName) {
+		this.fullName = fullName;
+		fullName.setCustomer(this);
+	}
 	
 	public FullName getFullName() {
 		return fullName;
@@ -71,6 +87,14 @@ public class Customer {
 	}
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
