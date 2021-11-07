@@ -15,7 +15,9 @@ import vn.ptit.utils.FilterMap;
 public class ShoesService {
 	@PersistenceContext
 	EntityManager entityManager;
-	
+
+	private int LIMIT = 3;
+
 	public List<ShoesItem> getShoesItemBySlug(String slug) {
 		String jpql = "SELECT c FROM ShoesItem c";
 		if (!slug.isEmpty()) {
@@ -33,8 +35,57 @@ public class ShoesService {
 		Query query = entityManager.createQuery(jpql, ShoesItem.class);
 		return query.setMaxResults(4).getResultList();
 	}
-	
+
+	public List<ShoesItem> get8ShoesItemInHome() {
+		String jpql = "SELECT c FROM ShoesItem c ORDER BY substring_index(c.slug, '-', -1) desc";
+		Query query = entityManager.createQuery(jpql, ShoesItem.class);
+		return query.setMaxResults(8).getResultList();
+	}
+
 	public List<ShoesItem> findByCategory(List<FilterMap> list) {
+		String jpql = "select p from ShoesItem p where 1=1";
+		int page = 1;
+		for (FilterMap filterMap : list) {
+			if (filterMap.getKey().equalsIgnoreCase("sort")) {
+				if (filterMap.getValue().equalsIgnoreCase("low-to-high")) {
+					jpql += " order by p.price asc";
+				} else
+					jpql += " order by p.price desc";
+
+			} else if (filterMap.getKey().equalsIgnoreCase("price")) {
+				if (filterMap.getValue().compareToIgnoreCase("duoi100") == 0) {
+					jpql += " and p.price<100000";
+
+				} else if (filterMap.getValue().compareToIgnoreCase("tu100den300") == 0) {
+					jpql += " and p.price>=100000 and p.price<300000";
+
+				} else if (filterMap.getValue().compareToIgnoreCase("tu300den500") == 0) {
+					jpql += " and p.price>=300000 and p.price<500000";
+
+				} else if (filterMap.getValue().compareToIgnoreCase("tu500den1trieu") == 0) {
+					jpql += " and p.price>=500000 and p.price<1000000";
+
+				} else if (filterMap.getValue().compareToIgnoreCase("tren1trieu") == 0) {
+					jpql += " and p.price>=1000000";
+
+				}
+			} else if (filterMap.getKey().equalsIgnoreCase("color")) {
+				jpql += " and p.shoes." + filterMap.getKey() + "='" + filterMap.getValue() + "'";
+			} else if (filterMap.getKey().equalsIgnoreCase("style")) {
+				jpql += " and p.shoes." + filterMap.getKey() + "='" + filterMap.getValue() + "'";
+			} else if (filterMap.getKey().equalsIgnoreCase("material")) {
+				jpql += " and p.shoes." + filterMap.getKey() + "='" + filterMap.getValue() + "'";
+			} else if (filterMap.getKey().equalsIgnoreCase("pageNumber")) {
+				page = Integer.parseInt(filterMap.getValue());
+			}
+		}
+		Query query = entityManager.createQuery(jpql, ShoesItem.class);
+		query.setFirstResult((page-1)*LIMIT);
+		query.setMaxResults(LIMIT);
+		return query.getResultList();
+	}
+
+	public List<ShoesItem> findItemByCategory(List<FilterMap> list) {
 		String jpql = "select p from ShoesItem p where 1=1";
 		for (FilterMap filterMap : list) {
 			if (filterMap.getKey().equalsIgnoreCase("sort")) {
@@ -71,8 +122,8 @@ public class ShoesService {
 		Query query = entityManager.createQuery(jpql, ShoesItem.class);
 		return query.getResultList();
 	}
-	
-	public List<ShoesItem> findByName(String name){
+
+	public List<ShoesItem> findByName(String name) {
 		String jpql = "SELECT p FROM ShoesItem p";
 		jpql += " WHERE p.shoes.name LIKE '%" + name + "%'";
 		Query query = entityManager.createQuery(jpql, ShoesItem.class);
