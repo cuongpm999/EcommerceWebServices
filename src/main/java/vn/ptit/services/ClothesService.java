@@ -17,7 +17,7 @@ public class ClothesService {
 	@PersistenceContext
 	EntityManager entityManager;
 
-	private int LIMIT = 3;
+	private int LIMIT = 28;
 
 	public List<ClothesItem> getClothesItemBySlug(String slug) {
 		String jpql = "SELECT c FROM ClothesItem c";

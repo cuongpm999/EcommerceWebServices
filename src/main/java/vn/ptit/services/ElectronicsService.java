@@ -16,7 +16,7 @@ public class ElectronicsService {
 	@PersistenceContext
 	EntityManager entityManager;
 
-	private int LIMIT = 3;
+	private int LIMIT = 28;
 
 	@SuppressWarnings("unchecked")
 	public List<ElectronicsItem> findByCategory(List<FilterMap> list) {
@@ -187,7 +187,7 @@ public class ElectronicsService {
 	}
 
 	public List<ElectronicsItem> get8ItemInHome() {
-		String jpql = "select p from ElectronicsItem p";
+		String jpql = "select p from ElectronicsItem p ORDER BY substring_index(p.slug, '-', -1) desc";
 		Query query = entityManager.createQuery(jpql, ElectronicsItem.class);
 		query.setMaxResults(8);
 

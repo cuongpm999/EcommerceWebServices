@@ -19,11 +19,11 @@ public class FullName {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
-	@Column(name = "FirstName", nullable = false, length = 255)
+	@Column(name = "FirstName", length = 255)
 	private String firstName;
-	@Column(name = "MiddleName", nullable = false, length = 255)
+	@Column(name = "MiddleName", length = 255)
 	private String middleName;
-	@Column(name = "LastName", nullable = false, length = 255)
+	@Column(name = "LastName", length = 255)
 	private String lastName;
 	
 	@JsonBackReference

@@ -26,4 +26,13 @@ public class CustomerService {
 		}
 		return null;
 	}
+
+	public CustomerMember getCustomerMemberByEmail(String email) {
+		String jpql = "select p from CustomerMember p";
+		if (!email.isEmpty()) {
+			jpql += " where p.email = '" + email + "'";
+		}
+		Query query = entityManager.createQuery(jpql, CustomerMember.class);
+		return (CustomerMember) query.getResultList().get(0);
+	}
 }

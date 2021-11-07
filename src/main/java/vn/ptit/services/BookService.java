@@ -16,7 +16,7 @@ public class BookService {
 	@PersistenceContext
 	EntityManager entityManager;
 
-	private int LIMIT = 3;
+	private int LIMIT = 28;
 
 	@SuppressWarnings("unchecked")
 	public List<BookItem> findByAuthor(List<FilterMap> list) {
@@ -158,7 +158,7 @@ public class BookService {
 	}
 
 	public List<BookItem> get8ItemInHome() {
-		String jpql = "select p from BookItem p";
+		String jpql = "select p from BookItem p ORDER BY substring_index(p.slug, '-', -1) desc";
 		Query query = entityManager.createQuery(jpql, BookItem.class);
 		query.setMaxResults(8);
 
