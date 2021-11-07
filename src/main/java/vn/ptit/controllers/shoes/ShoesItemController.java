@@ -15,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vn.ptit.entities.clothes.ClothesItem;
-import vn.ptit.entities.clothes.Dresses;
-import vn.ptit.entities.clothes.Jeans;
-import vn.ptit.entities.clothes.SwimWear;
 import vn.ptit.entities.shoes.*;
 import vn.ptit.repositories.shoes.ShoesItemRepository;
 import vn.ptit.services.ShoesService;
@@ -45,6 +41,11 @@ public class ShoesItemController {
 	@GetMapping(value = "/get-4-shoes-item/{slug}")
 	public List<ShoesItem> get4ShoesItemBySlug(@PathVariable("slug") String slug) {
 		return shoesService.get4CShoesItemBySlug(slug);
+	}
+	
+	@GetMapping(value = "/find-by-name/{name}")
+	public List<ShoesItem> getShoesItemByName(@PathVariable("name") String name) {
+		return shoesService.findByName(name);
 	}
 	
 	@PostMapping(value = "/insert")

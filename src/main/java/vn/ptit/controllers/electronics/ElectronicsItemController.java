@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.ptit.entities.electronics.ElectronicsItem;
-import vn.ptit.entities.electronics.ImgElectronicsItem;
 import vn.ptit.entities.electronics.Laptop;
 import vn.ptit.entities.electronics.Tivi;
 import vn.ptit.entities.electronics.MobilePhone;
-import vn.ptit.entities.electronics.Manufacturer;
 import vn.ptit.repositories.electronics.ElectronicsItemRepository;
 import vn.ptit.repositories.electronics.ImgElectronicsItemRepository;
 import vn.ptit.services.ElectronicsService;
@@ -108,6 +106,10 @@ public class ElectronicsItemController {
 		
 		return electronicsService.getSameElectronicsItem(slug);
 	}
-
+	
+	@GetMapping(value = "/find-by-name/{name}")
+	public List<ElectronicsItem> getElectronicsItemByName(@PathVariable("name") String name) {
+		return electronicsService.findByName(name);
+	}
 
 }

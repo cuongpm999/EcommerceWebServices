@@ -71,4 +71,11 @@ public class ShoesService {
 		Query query = entityManager.createQuery(jpql, ShoesItem.class);
 		return query.getResultList();
 	}
+	
+	public List<ShoesItem> findByName(String name){
+		String jpql = "SELECT p FROM ShoesItem p";
+		jpql += " WHERE p.shoes.name LIKE '%" + name + "%'";
+		Query query = entityManager.createQuery(jpql, ShoesItem.class);
+		return query.getResultList();
+	}
 }
