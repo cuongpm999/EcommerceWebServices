@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.ptit.entities.book.BookItem;
 import vn.ptit.entities.electronics.ElectronicsItem;
 import vn.ptit.entities.electronics.Laptop;
 import vn.ptit.entities.electronics.Tivi;
@@ -55,7 +56,7 @@ public class ElectronicsItemController {
 	@PostMapping(value = "/find-by-category")
 	public List<ElectronicsItem> filterByCategory(@RequestBody List<FilterMap> filterMap, ModelMap model,
 			HttpServletRequest req, HttpServletResponse resp) {
-		List<ElectronicsItem> electronicsItems = electronicsService.findByCategory(filterMap);
+		List<ElectronicsItem> electronicsItems = electronicsService.findItemByTypeElectronics(filterMap);
 		List<ElectronicsItem> itemByCategory = new ArrayList<>();
 		if (filterMap.get(0).getValue().equalsIgnoreCase("laptop")) {
 			for (ElectronicsItem electronicsItem : electronicsItems) {
@@ -110,6 +111,12 @@ public class ElectronicsItemController {
 	@GetMapping(value = "/find-by-name/{name}")
 	public List<ElectronicsItem> getElectronicsItemByName(@PathVariable("name") String name) {
 		return electronicsService.findByName(name);
+	}
+	
+	@GetMapping("/get-item-in-home")
+	public List<ElectronicsItem> getItemInHome() {
+
+		return electronicsService.get8ItemInHome();
 	}
 
 }

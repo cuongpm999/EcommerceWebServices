@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.ptit.entities.book.BookItem;
+import vn.ptit.entities.electronics.ElectronicsItem;
 import vn.ptit.repositories.book.BookItemRepository;
 import vn.ptit.repositories.book.ImgBookItemRepository;
 import vn.ptit.services.BookService;
@@ -29,20 +30,20 @@ public class BookItemController {
 
 	@Autowired
 	ImgBookItemRepository imgBookItemRepository;
-	
+
 	@Autowired
 	BookService bookService;
-	
+
 	@PostMapping(value = "/find-by-author")
 	public List<BookItem> findByAuthor(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
 			HttpServletResponse resp) {
 
 		return bookService.findByAuthor(filterMap);
 	}
-	
+
 	@PostMapping(value = "/find-by-publisher")
-	public List<BookItem> findByPublisher(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
-			HttpServletResponse resp) {
+	public List<BookItem> findByPublisher(@RequestBody List<FilterMap> filterMap, ModelMap model,
+			HttpServletRequest req, HttpServletResponse resp) {
 
 		return bookService.findByPublisher(filterMap);
 	}
@@ -60,22 +61,37 @@ public class BookItemController {
 	public List<BookItem> findAll() {
 		return bookItemRepository.findAll();
 	}
-	
+
 	@GetMapping(value = "/{slug}")
-	public BookItem getBookItemBySlug(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
-		
+	public BookItem getBookItemBySlug(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
 		return bookService.getBookItemBySlug(slug).get(0);
 	}
-	
+
 	@GetMapping(value = "/same-item/{slug}")
-	public List<BookItem> getSameBookItem(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
-		
+	public List<BookItem> getSameBookItem(@PathVariable("slug") String slug, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
 		return bookService.getSameBookItem(slug);
 	}
-	
+
 	@GetMapping(value = "/find-by-name/{name}")
 	public List<BookItem> BookItem(@PathVariable("name") String name) {
 		return bookService.findByName(name);
+	}
+
+	@GetMapping("/get-item-in-home")
+	public List<BookItem> getItemInHome() {
+
+		return bookService.get8ItemInHome();
+	}
+	
+	@PostMapping(value = "/find-all-in-category")
+	public List<BookItem> findAllInCategory(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		return bookService.filterByCategory(filterMap);
 	}
 
 }

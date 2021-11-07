@@ -16,8 +16,11 @@ public class ElectronicsService {
 	@PersistenceContext
 	EntityManager entityManager;
 
+	private int LIMIT = 3;
+
 	@SuppressWarnings("unchecked")
 	public List<ElectronicsItem> findByCategory(List<FilterMap> list) {
+		int page = 1;
 
 		String jpql = "select p from ElectronicsItem p where 1=1";
 
@@ -49,7 +52,52 @@ public class ElectronicsService {
 				}
 			} else if (filterMap.getKey().equalsIgnoreCase("screendSize")) {
 				jpql += " and p.electronics.screendSize = " + filterMap.getValue();
+			} else if (filterMap.getKey().equalsIgnoreCase("pageNumber")) {
+				page = Integer.parseInt(filterMap.getValue());
 			}
+
+		}
+
+		Query query = entityManager.createQuery(jpql, ElectronicsItem.class);
+		query.setFirstResult((page - 1) * LIMIT);
+		query.setMaxResults(LIMIT);
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ElectronicsItem> findItemByTypeElectronics(List<FilterMap> list) {
+		String jpql = "select p from ElectronicsItem p where 1=1";
+
+		for (FilterMap filterMap : list) {
+			if (filterMap.getKey().equalsIgnoreCase("sort")) {
+				if (filterMap.getValue().equalsIgnoreCase("low-to-high")) {
+					jpql += " order by p.price asc";
+				} else
+					jpql += " order by p.price desc";
+
+			} else if (filterMap.getKey().equalsIgnoreCase("price")) {
+				if (filterMap.getValue().compareToIgnoreCase("duoi10trieu") == 0) {
+					jpql += " and p.price<10000000";
+
+				} else if (filterMap.getValue().compareToIgnoreCase("10den20trieu") == 0) {
+					jpql += " and p.price>=10000000 and p.price<20000000";
+
+				} else if (filterMap.getValue().compareToIgnoreCase("20den30trieu") == 0) {
+					jpql += " and p.price>=20000000 and p.price<30000000";
+
+				} else if (filterMap.getValue().compareToIgnoreCase("30den40trieu") == 0) {
+					jpql += " and p.price>=30000000 and p.price<40000000";
+
+				} else if (filterMap.getValue().compareToIgnoreCase("40den50trieu") == 0) {
+					jpql += " and p.price>=40000000 and p.price<50000000";
+
+				} else if (filterMap.getValue().compareToIgnoreCase("tren50trieu") == 0) {
+					jpql += " and p.price>=50000000";
+				}
+			} else if (filterMap.getKey().equalsIgnoreCase("screendSize")) {
+				jpql += " and p.electronics.screendSize = " + filterMap.getValue();
+			}
+
 		}
 
 		Query query = entityManager.createQuery(jpql, ElectronicsItem.class);
@@ -59,7 +107,8 @@ public class ElectronicsService {
 
 	@SuppressWarnings("unchecked")
 	public List<ElectronicsItem> findByManufacturer(List<FilterMap> list) {
-
+		int page = 1;
+		
 		String jpql = "select p from ElectronicsItem p where 1=1 and p.electronics.manufacturer.id = "
 				+ list.get(0).getValue();
 
@@ -91,10 +140,14 @@ public class ElectronicsService {
 				}
 			} else if (filterMap.getKey().equalsIgnoreCase("screendSize")) {
 				jpql += " and p.electronics.screendSize = " + filterMap.getValue();
+			} else if (filterMap.getKey().equalsIgnoreCase("pageNumber")) {
+				page = Integer.parseInt(filterMap.getValue());
 			}
 		}
 
 		Query query = entityManager.createQuery(jpql, ElectronicsItem.class);
+		query.setFirstResult((page - 1) * LIMIT);
+		query.setMaxResults(LIMIT);
 
 		return query.getResultList();
 	}
@@ -111,7 +164,7 @@ public class ElectronicsService {
 
 		return query.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<ElectronicsItem> getSameElectronicsItem(String slug) {
 
@@ -125,11 +178,19 @@ public class ElectronicsService {
 
 		return query.getResultList();
 	}
-	
-	public List<ElectronicsItem> findByName(String name){
+
+	public List<ElectronicsItem> findByName(String name) {
 		String jpql = "SELECT p FROM ElectronicsItem p";
 		jpql += " WHERE p.electronics.name LIKE '%" + name + "%'";
 		Query query = entityManager.createQuery(jpql, ElectronicsItem.class);
+		return query.getResultList();
+	}
+
+	public List<ElectronicsItem> get8ItemInHome() {
+		String jpql = "select p from ElectronicsItem p";
+		Query query = entityManager.createQuery(jpql, ElectronicsItem.class);
+		query.setMaxResults(8);
+
 		return query.getResultList();
 	}
 }
