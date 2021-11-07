@@ -43,6 +43,11 @@ public class ShoesItemController {
 		return shoesService.get4CShoesItemBySlug(slug);
 	}
 	
+	@GetMapping(value = "/get-8-shoes-item")
+	public List<ShoesItem> get8ShoesItemInHome() {
+		return shoesService.get8ShoesItemInHome();
+	}
+	
 	@GetMapping(value = "/find-by-name/{name}")
 	public List<ShoesItem> getShoesItemByName(@PathVariable("name") String name) {
 		return shoesService.findByName(name);
@@ -65,7 +70,7 @@ public class ShoesItemController {
 	
 	@PostMapping(value = "/find-by-category")
 	public List<ShoesItem> filterByCategory(@RequestBody List<FilterMap> filterMap) {
-		List<ShoesItem> shoesItems = shoesService.findByCategory(filterMap);
+		List<ShoesItem> shoesItems = shoesService.findItemByCategory(filterMap);
 		List<ShoesItem> itemByCategory = new ArrayList<>();
 		if (filterMap.get(0).getValue().equalsIgnoreCase("sneaker")) {
 			for (ShoesItem shoesItem : shoesItems) {
