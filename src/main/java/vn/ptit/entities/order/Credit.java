@@ -16,7 +16,7 @@ public class Credit extends Payment {
 	@Column(name = "Type", nullable = false, length = 255)
 	private String type;
 	@Column(name = "Date")
-	private Date date;
+	private String date;
 
 	public String getNumber() {
 		return number;
@@ -34,11 +34,11 @@ public class Credit extends Payment {
 		this.type = type;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

@@ -1,5 +1,6 @@
 package vn.ptit.controllers.shoes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vn.ptit.entities.clothes.Dresses;
-import vn.ptit.entities.clothes.Jeans;
-import vn.ptit.entities.clothes.SwimWear;
 import vn.ptit.entities.shoes.Boots;
 import vn.ptit.entities.shoes.HighHeels;
 import vn.ptit.entities.shoes.Shoes;
@@ -77,5 +75,31 @@ public class AdminShoesController {
 			return optHighHeels.get();
 		}
 		return null;
+	}
+	
+	@GetMapping("/find-by-category/{category}")
+	public List<Shoes> findShoesByCategory(@PathVariable String category) {
+		List<Shoes> shoes1 = shoesRepository.findAll();
+		List<Shoes> shoes2 = new ArrayList<>();
+		if (category.equalsIgnoreCase("HighHeels")) {
+			for (Shoes shoes : shoes1) {
+				if(shoes instanceof HighHeels) {
+					shoes2.add(shoes);
+				}
+			}
+		}else if(category.equalsIgnoreCase("Sneaker")) {
+			for (Shoes shoes : shoes1) {
+				if(shoes instanceof Sneaker) {
+					shoes2.add(shoes);
+				}
+			}
+		}else if(category.equalsIgnoreCase("Boots")) {
+			for (Shoes shoes : shoes1) {
+				if(shoes instanceof Boots) {
+					shoes2.add(shoes);
+				}
+			}
+		}
+		return shoes2;
 	}
 }

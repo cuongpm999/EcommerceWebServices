@@ -1,5 +1,6 @@
 package vn.ptit.controllers.clothes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,4 +79,31 @@ public class AdminClothesController {
 		}
 		return null;
 	}
+	
+	@GetMapping("/find-by-category/{category}")
+	public List<Clothes> findClothesByCategory(@PathVariable String category) {
+		List<Clothes> clothes1 = clothesRepository.findAll();
+		List<Clothes> clothes2 = new ArrayList<>();
+		if (category.equalsIgnoreCase("Jeans")) {
+			for (Clothes clothes : clothes1) {
+				if(clothes instanceof Jeans) {
+					clothes2.add(clothes);
+				}
+			}
+		}else if(category.equalsIgnoreCase("Dresses")) {
+			for (Clothes clothes : clothes1) {
+				if(clothes instanceof Dresses) {
+					clothes2.add(clothes);
+				}
+			}
+		}else if(category.equalsIgnoreCase("Swimwear")) {
+			for (Clothes clothes : clothes1) {
+				if(clothes instanceof SwimWear) {
+					clothes2.add(clothes);
+				}
+			}
+		}
+		return clothes2;
+	}
+	
 }
