@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -77,6 +78,9 @@ public class ShoppingCart {
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.LAZY)
 	private List<LineClothesItem> lineClothesItems = new ArrayList<>();
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.EAGER)
+	private Order order;
 	
 	public int getId() {
 		return id;
