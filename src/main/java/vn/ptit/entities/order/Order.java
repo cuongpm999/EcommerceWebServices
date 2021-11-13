@@ -13,10 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import vn.ptit.entities.customer.Customer;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "`Order`")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,5 +100,13 @@ public class Order {
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", dateCreate=" + dateCreate + ", status=" + status + ", customer=" + customer
+				+ ", shipment=" + shipment + ", shoppingCart=" + shoppingCart + ", payment=" + payment + "]";
+	}
+	
+	
 
 }

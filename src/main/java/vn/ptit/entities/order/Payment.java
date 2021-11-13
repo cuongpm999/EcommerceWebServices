@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "Payment")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -23,17 +25,6 @@ public class Payment {
 	private int id;
 	@Column(name = "TotalMoney", nullable = false)
 	private double totalMoney;
-
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "payment", fetch = FetchType.EAGER)
-	private Order order;
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
 
 	public int getId() {
 		return id;

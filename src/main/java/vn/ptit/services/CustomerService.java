@@ -1,5 +1,7 @@
 package vn.ptit.services;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -34,5 +36,11 @@ public class CustomerService {
 		}
 		Query query = entityManager.createQuery(jpql, CustomerMember.class);
 		return (CustomerMember) query.getResultList().get(0);
+	}
+
+	public List<CustomerMember> checkMailEdit(int idCus) {
+		String jpql = "select p from CustomerMember p where p.id != " + idCus;
+		Query query = entityManager.createQuery(jpql, CustomerMember.class);
+		return query.getResultList();
 	}
 }

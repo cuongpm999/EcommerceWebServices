@@ -55,4 +55,14 @@ public class CustomerController {
 		
 		return customerService.getCustomerMemberByEmail(email);
 	}
+	
+	@GetMapping("/checkmail-edit/{id}")
+	public List<CustomerMember> checkMailEdit(@PathVariable("id") int id){
+		return customerService.checkMailEdit(id);
+	}
+	
+	@PostMapping(value = "/edit-profile")
+	public CustomerMember editProfile(@RequestBody CustomerMember customerMember) {
+		return customerMemberRepository.save(customerMember);
+	}
 }

@@ -33,4 +33,37 @@ public class LineShoesItem {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CartID")
 	private ShoppingCart shoppingCart;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getQuanity() {
+		return quanity;
+	}
+
+	public void setQuanity(int quanity) {
+		this.quanity = quanity;
+	}
+
+	public ShoesItem getShoesItem() {
+		return shoesItem;
+	}
+
+	public void setShoesItem(ShoesItem shoesItem) {
+		this.shoesItem = shoesItem;
+	}
+
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+	
 }

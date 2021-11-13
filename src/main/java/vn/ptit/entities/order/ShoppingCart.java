@@ -20,6 +20,58 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "Cart")
 public class ShoppingCart {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private int id;
+	
+	@Column(name = "DateCreate", nullable = false)
+	private Date dateCreate;
+	
+	@Column(name = "TotalAmount", nullable = false)
+	private double totalAmount;
+
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.LAZY)
+	private List<LineElectronicsItem> lineElectronicsItems = new ArrayList<>();
+	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.LAZY)
+	private List<LineBookItem> lineBookItems = new ArrayList<>();
+	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.LAZY)
+	private List<LineShoesItem> lineShoesItems = new ArrayList<>();
+	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.LAZY)
+	private List<LineClothesItem> lineClothesItems = new ArrayList<>();
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getDateCreate() {
+		return dateCreate;
+	}
+
+	public void setDateCreate(Date dateCreate) {
+		this.dateCreate = dateCreate;
+	}
+
+	public double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
 	public List<LineElectronicsItem> getLineElectronicsItems() {
 		return lineElectronicsItems;
 	}
@@ -52,58 +104,11 @@ public class ShoppingCart {
 		this.lineClothesItems = lineClothesItems;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private int id;
-	
-	@Column(name = "DateCreate", nullable = false)
-	private Date date;
-	
-	@Column(name = "TotalAmount", nullable = false)
-	private double totalAmount;
-
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.LAZY)
-	private List<LineElectronicsItem> lineElectronicsItems = new ArrayList<>();
-	
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.LAZY)
-	private List<LineBookItem> lineBookItems = new ArrayList<>();
-	
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.LAZY)
-	private List<LineShoesItem> lineShoesItems = new ArrayList<>();
-	
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.LAZY)
-	private List<LineClothesItem> lineClothesItems = new ArrayList<>();
-	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "shoppingCart", fetch = FetchType.EAGER)
-	private Order order;
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public double getTotalAmount() {
-		return totalAmount;
-	}
-
-	public void setTotalAmount(double totalAmount) {
-		this.totalAmount = totalAmount;
-	}
+	@Override
+	public String toString() {
+		return "ShoppingCart [id=" + id + ", dateCreate=" + dateCreate + ", totalAmount=" + totalAmount
+				+ ", lineElectronicsItems=" + lineElectronicsItems + ", lineBookItems=" + lineBookItems
+				+ ", lineShoesItems=" + lineShoesItems + ", lineClothesItems=" + lineClothesItems + "]";
+	}	
 	
 }
