@@ -133,6 +133,9 @@ public class OrderController {
 		if(datas[1].equalsIgnoreCase("cancel")) {
 			statusOrder = "Đã hủy";
 		}
+		if(datas[1].equalsIgnoreCase("delivered")) {
+			statusOrder = "Đã giao";
+		}
 		Order order = orderRepository.findById(id).get();
 		order.setStatus(statusOrder);
 		return orderRepository.save(order);
