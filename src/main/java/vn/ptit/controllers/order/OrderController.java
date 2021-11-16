@@ -137,5 +137,10 @@ public class OrderController {
 		order.setStatus(statusOrder);
 		return orderRepository.save(order);
 	}
+	
+	@GetMapping("/find-all")
+	public List<Order> findAll(){
+		return orderRepository.findAll();
+	}
 
 }
