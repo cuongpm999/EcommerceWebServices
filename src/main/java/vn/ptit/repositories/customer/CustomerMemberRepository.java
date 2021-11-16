@@ -1,4 +1,4 @@
-package vn.ptit.repositories;
+package vn.ptit.repositories.customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

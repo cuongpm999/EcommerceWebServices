@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.ptit.entities.customer.Account;
 import vn.ptit.entities.customer.CustomerMember;
-import vn.ptit.repositories.CustomerMemberRepository;
+import vn.ptit.repositories.customer.CustomerMemberRepository;
 import vn.ptit.services.CustomerService;
 
 @RestController
