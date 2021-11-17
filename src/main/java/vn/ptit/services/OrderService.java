@@ -21,4 +21,10 @@ public class OrderService {
 		Query query = entityManager.createQuery(jpql, Order.class);
 		return query.getResultList();
 	}
+	
+	public List<Order> getOrderByStatus() {
+		String jpql = "select o from Order o where status = 'Đã giao'";
+		Query query = entityManager.createQuery(jpql, Order.class);
+		return query.getResultList();
+	}
 }

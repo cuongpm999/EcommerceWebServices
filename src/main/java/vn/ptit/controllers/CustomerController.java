@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.ptit.entities.customer.Account;
+import vn.ptit.entities.customer.Customer;
 import vn.ptit.entities.customer.CustomerMember;
 import vn.ptit.repositories.customer.CustomerMemberRepository;
+import vn.ptit.repositories.customer.CustomerRepository;
 import vn.ptit.services.CustomerService;
 
 @RestController
@@ -22,6 +24,7 @@ public class CustomerController {
 	CustomerMemberRepository customerMemberRepository;
 	@Autowired
 	CustomerService customerService;
+	@Autowired CustomerRepository customerRepository;
 
 	@PostMapping(value = "/register")
 	public CustomerMember register(@RequestBody CustomerMember customerMember) {
@@ -64,5 +67,15 @@ public class CustomerController {
 	@PostMapping(value = "/edit-profile")
 	public CustomerMember editProfile(@RequestBody CustomerMember customerMember) {
 		return customerMemberRepository.save(customerMember);
+	}
+	
+	@GetMapping("/get-customer-by-order/{orderId}")
+	public Customer customer(@PathVariable("orderId") int orderId) {
+		return customerService.getByOrder(orderId);
+	}
+	
+	@GetMapping("/total-customers")
+	public Integer totalCustomers(){
+		return customerRepository.findAll().size();
 	}
 }

@@ -26,6 +26,7 @@ import vn.ptit.entities.order.LineClothesItem;
 import vn.ptit.entities.order.LineElectronicsItem;
 import vn.ptit.entities.order.LineShoesItem;
 import vn.ptit.entities.order.Order;
+import vn.ptit.entities.order.Payment;
 import vn.ptit.entities.order.ShoppingCart;
 import vn.ptit.repositories.customer.CustomerMemberRepository;
 import vn.ptit.repositories.customer.CustomerNewRepository;
@@ -144,6 +145,16 @@ public class OrderController {
 	@GetMapping("/find-all")
 	public List<Order> findAll(){
 		return orderRepository.findAll();
+	}
+	
+	@GetMapping("/total-order")
+	public Integer totalOrder(){
+		return orderRepository.findAll().size();
+	}
+	
+	@GetMapping("/find-by-status-success")
+	public List<Order> findAllOrderByStatus(){
+		return orderService.getOrderByStatus();
 	}
 
 }

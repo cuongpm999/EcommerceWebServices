@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 
 import vn.ptit.entities.customer.Account;
+import vn.ptit.entities.customer.Customer;
 import vn.ptit.entities.customer.CustomerMember;
 
 @Service
@@ -42,5 +43,12 @@ public class CustomerService {
 		String jpql = "select p from CustomerMember p where p.id != " + idCus;
 		Query query = entityManager.createQuery(jpql, CustomerMember.class);
 		return query.getResultList();
+	}
+	
+	public Customer getByOrder(int orderId) {
+		String jpql = "select c from Customer c, Order o where c.id = o.customer.id and o.id = "+orderId;
+		Query query = entityManager.createQuery(jpql, Customer.class);
+		return (Customer) query.getResultList().get(0);
+		
 	}
 }
