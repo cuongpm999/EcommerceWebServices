@@ -44,6 +44,11 @@ public class CustomerController {
 		return customerMemberRepository.findAll();
 	}
 	
+	@GetMapping("/find-all-customer")
+	public List<Customer> findAllCustomer(){
+		return customerRepository.findAll();
+	}
+	
 	@PostMapping("/insert-by-social")
 	public CustomerMember insertCustomerBySocial(@RequestBody CustomerMember customerMember){
 		customerMember.addFullName(customerMember.getFullName());
