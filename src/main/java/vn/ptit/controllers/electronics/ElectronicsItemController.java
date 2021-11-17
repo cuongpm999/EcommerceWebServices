@@ -118,5 +118,25 @@ public class ElectronicsItemController {
 
 		return electronicsService.get8ItemInHome();
 	}
+	
+	@GetMapping(value = "/delete-by-code/{code}")
+	public Integer deleteByCode(@PathVariable("code") String code) {
+		electronicsItemRepository.deleteById(code);
+		return 1;
+	}
+	
+	@GetMapping(value = "/find-by-code/{code}")
+	public ElectronicsItem findByCode(@PathVariable("code") String code) {
+		return electronicsItemRepository.findById(code).get();
+		
+	}
+	
+	@PostMapping(value = "/update")
+	public ElectronicsItem update(@RequestBody ElectronicsItem electronicsItem, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		return electronicsItemRepository.save(electronicsItem);
+	}
+
 
 }

@@ -84,5 +84,42 @@ public class ElectronicsController {
 		}
 		return electronics2;
 	}
+	
+	@GetMapping(value = "/laptop/find-by-id/{id}")
+	public Laptop findByIdLaptop(@PathVariable("id") int id) {
+
+		return laptopRepository.findById(id).get();
+	}
+	
+	@GetMapping(value = "/laptop/delete-by-id/{id}")
+	public Integer deleteByIdLaptop(@PathVariable("id") int id) {
+		laptopRepository.deleteById(id);
+		return 1;
+	}
+	
+	@GetMapping(value = "/tivi/find-by-id/{id}")
+	public Tivi findByIdTivi(@PathVariable("id") int id) {
+
+		return tiviRepository.findById(id).get();
+	}
+	
+	@GetMapping(value = "/tivi/delete-by-id/{id}")
+	public Integer deleteByIdTivi(@PathVariable("id") int id) {
+		tiviRepository.deleteById(id);
+		return 1;
+	}
+	
+	@GetMapping(value = "/mobilephone/find-by-id/{id}")
+	public MobilePhone findByIdMobilephone(@PathVariable("id") int id) {
+
+		return mobilePhoneRepository.findById(id).get();
+	}
+	
+	@GetMapping(value = "/mobilephone/delete-by-id/{id}")
+	public Integer deleteByIdMobilephone(@PathVariable("id") int id) {
+		mobilePhoneRepository.deleteById(id);
+		return 1;
+	}
+
 
 }
