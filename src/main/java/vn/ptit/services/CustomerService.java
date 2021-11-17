@@ -44,11 +44,10 @@ public class CustomerService {
 		Query query = entityManager.createQuery(jpql, CustomerMember.class);
 		return query.getResultList();
 	}
-	
+
 	public Customer getByOrder(int orderId) {
-		String jpql = "select c from Customer c, Order o where c.id = o.customer.id and o.id = "+orderId;
+		String jpql = "select c from Customer c, Order o where c.id = o.customer.id and o.id = " + orderId;
 		Query query = entityManager.createQuery(jpql, Customer.class);
 		return (Customer) query.getResultList().get(0);
-		
 	}
 }

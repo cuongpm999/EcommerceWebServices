@@ -156,5 +156,10 @@ public class OrderController {
 	public List<Order> findAllOrderByStatus(){
 		return orderService.getOrderByStatus();
 	}
+	
+	@GetMapping("/get-order-success-by-customer/{idCustomer}")
+	public List<Order> getOrderSuccessByCustomer(@PathVariable("idCustomer") int idCustomer){
+		return orderService.getOrderSuccessByCustomer(idCustomer);
+	}
 
 }
