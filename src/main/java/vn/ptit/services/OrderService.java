@@ -15,15 +15,21 @@ import vn.ptit.entities.shoes.ShoesItem;
 public class OrderService {
 	@PersistenceContext
 	EntityManager entityManager;
-	
+
 	public List<Order> getOrderByIdCustomer(int id) {
-		String jpql = "select o from Order o where customer.id = " +id;
+		String jpql = "select o from Order o where customer.id = " + id;
 		Query query = entityManager.createQuery(jpql, Order.class);
 		return query.getResultList();
 	}
-	
+
 	public List<Order> getOrderByStatus() {
 		String jpql = "select o from Order o where status = 'Đã giao'";
+		Query query = entityManager.createQuery(jpql, Order.class);
+		return query.getResultList();
+	}
+
+	public List<Order> getOrderSuccessByCustomer(int id) {
+		String jpql = "select o from Order o where status = 'Đã giao' and o.customer.id = " + id;
 		Query query = entityManager.createQuery(jpql, Order.class);
 		return query.getResultList();
 	}
