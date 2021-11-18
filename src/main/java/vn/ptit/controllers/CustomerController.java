@@ -83,4 +83,10 @@ public class CustomerController {
 	public Integer totalCustomers(){
 		return customerRepository.findAll().size();
 	}
+	
+	@GetMapping("/delete-customer/{id}")
+	public Integer deleteCustomer(@PathVariable("id") int id){		
+		customerRepository.deleteById(id);
+		return 1;
+	}
 }
