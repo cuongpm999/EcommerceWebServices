@@ -162,4 +162,9 @@ public class OrderController {
 		return orderService.getOrderSuccessByCustomer(idCustomer);
 	}
 
+	@GetMapping("/find-by-id/{orderID}")
+	public Order findOrderByID(@PathVariable("orderID") int orderID) {
+		return orderRepository.findById(orderID).get();
+	}
+	
 }

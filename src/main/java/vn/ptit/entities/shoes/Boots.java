@@ -12,7 +12,7 @@ public class Boots extends Shoes{
 	@Column(name = "IsShoelace", nullable = false)
 	private boolean isShoelace;
 
-	public boolean isShoelace() {
+	public boolean isIsShoelace() {
 		return isShoelace;
 	}
 
