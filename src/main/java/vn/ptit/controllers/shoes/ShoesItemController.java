@@ -24,50 +24,53 @@ import vn.ptit.utils.FilterMap;
 @RequestMapping("/rest/api/shoes-item")
 public class ShoesItemController {
 
-	@Autowired ShoesItemRepository shoesItemRepository;
-	
-	@Autowired ShoesService shoesService;
-	
+	@Autowired
+	ShoesItemRepository shoesItemRepository;
+
+	@Autowired
+	ShoesService shoesService;
+
 	@GetMapping(value = "/find-all")
-	public List<ShoesItem> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp){
+	public List<ShoesItem> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
 		return shoesItemRepository.findAll();
 	}
-	
+
 	@GetMapping(value = "/{slug}")
 	public ShoesItem getShoesItemBySlug1(@PathVariable("slug") String slug) {
 		return shoesService.getShoesItemBySlug(slug).get(0);
 	}
-	
+
 	@GetMapping(value = "/get-4-shoes-item/{slug}")
 	public List<ShoesItem> get4ShoesItemBySlug(@PathVariable("slug") String slug) {
 		return shoesService.get4CShoesItemBySlug(slug);
 	}
-	
+
 	@GetMapping(value = "/get-8-shoes-item")
 	public List<ShoesItem> get8ShoesItemInHome() {
 		return shoesService.get8ShoesItemInHome();
 	}
-	
+
 	@GetMapping(value = "/find-by-name/{name}")
 	public List<ShoesItem> getShoesItemByName(@PathVariable("name") String name) {
 		return shoesService.findByName(name);
 	}
-	
+
 	@PostMapping(value = "/insert")
-	public ShoesItem insert(@RequestBody ShoesItem shoesItem, ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
-		for(int i=0;i<shoesItem.getImgShoesItems().size();i++) {
+	public ShoesItem insert(@RequestBody ShoesItem shoesItem, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+		for (int i = 0; i < shoesItem.getImgShoesItems().size(); i++) {
 			shoesItem.getImgShoesItems().get(i).setShoesItem(shoesItem);
 		}
 		return shoesItemRepository.save(shoesItem);
 	}
-	
+
 	@PostMapping(value = "/find-all-in-category")
-	public List<ShoesItem> findAllInCategory(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
-			HttpServletResponse resp) {
+	public List<ShoesItem> findAllInCategory(@RequestBody List<FilterMap> filterMap, ModelMap model,
+			HttpServletRequest req, HttpServletResponse resp) {
 
 		return shoesService.findByCategory(filterMap);
 	}
-	
+
 	@PostMapping(value = "/find-by-category")
 	public List<ShoesItem> filterByCategory(@RequestBody List<FilterMap> filterMap) {
 		List<ShoesItem> shoesItems = shoesService.findItemByCategory(filterMap);
@@ -94,5 +97,22 @@ public class ShoesItemController {
 		return itemByCategory;
 	}
 
-	
+	@GetMapping(value = "/delete-by-code/{code}")
+	public Integer deleteByCode(@PathVariable("code") String code) {
+		shoesItemRepository.deleteById(code);
+		return 1;
+	}
+
+	@GetMapping(value = "/find-by-code/{code}")
+	public ShoesItem findByCode(@PathVariable("code") String code) {
+		return shoesItemRepository.findById(code).get();
+
+	}
+
+	@PostMapping(value = "/update")
+	public ShoesItem update(@RequestBody ShoesItem shoesItem, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		return shoesItemRepository.save(shoesItem);
+	}
 }

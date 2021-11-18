@@ -105,5 +105,40 @@ public class ClothesController {
 		}
 		return clothes2;
 	}
+	// update delete 
+	@GetMapping(value = "/dresses/find-by-id/{id}")
+	public Dresses findByIdDresses(@PathVariable("id") int id) {
+
+		return dressesRepository.findById(id).get();
+	}
 	
+	@GetMapping(value = "/dresses/delete-by-id/{id}")
+	public Integer deleteByIdDresses(@PathVariable("id") int id) {
+		dressesRepository.deleteById(id);
+		return 1;
+	}
+	
+	@GetMapping(value = "/jeans/find-by-id/{id}")
+	public Jeans findByIdJeans(@PathVariable("id") int id) {
+
+		return jeansRepository.findById(id).get();
+	}
+	
+	@GetMapping(value = "/jeans/delete-by-id/{id}")
+	public Integer deleteByIdJeans(@PathVariable("id") int id) {
+		jeansRepository.deleteById(id);
+		return 1;
+	}
+	
+	@GetMapping(value = "/swimwear/find-by-id/{id}")
+	public SwimWear findByIdSwimWear(@PathVariable("id") int id) {
+
+		return swimWearRepository.findById(id).get();
+	}
+	
+	@GetMapping(value = "/swimwear/delete-by-id/{id}")
+	public Integer deleteByIdSwimwear(@PathVariable("id") int id) {
+		swimWearRepository.deleteById(id);
+		return 1;
+	}
 }
