@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +30,16 @@ public class BookController {
 	@GetMapping(value = "/find-all")
 	public List<Book> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
 		return bookRepository.findAll();
+	}
+	
+	@GetMapping(value = "/find-by-id/{id}")
+	public Book findBookById(@PathVariable("id") int id) {
+		return bookRepository.findById(id).get();
+	}
+	
+	@GetMapping(value = "/delete-by-id/{id}")
+	public Integer deleteByIdBook(@PathVariable("id") int id) {
+		bookRepository.deleteById(id);
+		return 1;
 	}
 }
