@@ -19,7 +19,6 @@ import vn.ptit.repositories.clothes.ClothesItemRepository;
 import vn.ptit.services.ClothesService;
 import vn.ptit.utils.FilterMap;
 import vn.ptit.entities.clothes.*;
-import vn.ptit.entities.electronics.ElectronicsItem;
 
 @RestController
 @RequestMapping("/rest/api/clothes-item")
@@ -33,9 +32,10 @@ public class ClothesItemController {
 	public List<ClothesItem> findAll(ModelMap model, HttpServletRequest req, HttpServletResponse resp) {
 		return clothesItemRepository.findAll();
 	}
+
 	@PostMapping(value = "/find-all-in-category")
-	public List<ClothesItem> findAllInCategory(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
-			HttpServletResponse resp) {
+	public List<ClothesItem> findAllInCategory(@RequestBody List<FilterMap> filterMap, ModelMap model,
+			HttpServletRequest req, HttpServletResponse resp) {
 
 		return clothesService.findByCategory(filterMap);
 	}
@@ -44,17 +44,17 @@ public class ClothesItemController {
 	public ClothesItem getClothesItemBySlug1(@PathVariable("slug") String slug) {
 		return clothesService.getClothesItemBySlug(slug).get(0);
 	}
-	
+
 	@GetMapping(value = "/get-4-clothes-item/{slug}")
 	public List<ClothesItem> get4ClothesItemBySlug(@PathVariable("slug") String slug) {
 		return clothesService.get4ClothesItemBySlug(slug);
 	}
-	
+
 	@GetMapping(value = "/get-8-clothes-item")
 	public List<ClothesItem> get8ClothesItemInHome() {
 		return clothesService.get8ClothesItemInHome();
 	}
-	
+
 	@GetMapping(value = "/find-by-name/{name}")
 	public List<ClothesItem> getClothesItemByName(@PathVariable("name") String name) {
 		return clothesService.findByName(name);
@@ -92,6 +92,25 @@ public class ClothesItemController {
 		for (int i = 0; i < clothesItem.getImgClothesItems().size(); i++) {
 			clothesItem.getImgClothesItems().get(i).setClothesItem(clothesItem);
 		}
+		return clothesItemRepository.save(clothesItem);
+	}
+
+	@GetMapping(value = "/delete-by-code/{code}")
+	public Integer deleteByCode(@PathVariable("code") String code) {
+		clothesItemRepository.deleteById(code);
+		return 1;
+	}
+
+	@GetMapping(value = "/find-by-code/{code}")
+	public ClothesItem findByCode(@PathVariable("code") String code) {
+		return clothesItemRepository.findById(code).get();
+
+	}
+
+	@PostMapping(value = "/update")
+	public ClothesItem update(@RequestBody ClothesItem clothesItem, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+
 		return clothesItemRepository.save(clothesItem);
 	}
 }
