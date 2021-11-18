@@ -86,12 +86,29 @@ public class BookItemController {
 
 		return bookService.get8ItemInHome();
 	}
-	
+
 	@PostMapping(value = "/find-all-in-category")
-	public List<BookItem> findAllInCategory(@RequestBody List<FilterMap> filterMap, ModelMap model, HttpServletRequest req,
-			HttpServletResponse resp) {
+	public List<BookItem> findAllInCategory(@RequestBody List<FilterMap> filterMap, ModelMap model,
+			HttpServletRequest req, HttpServletResponse resp) {
 
 		return bookService.filterByCategory(filterMap);
+	}
+
+	@GetMapping(value = "/find-by-code/{code}")
+	public BookItem findByCode(@PathVariable("code") String code) {
+		return bookItemRepository.findById(code).get();
+	}
+
+	@PostMapping(value = "/update")
+	public BookItem update(@RequestBody BookItem bookItem, ModelMap model, HttpServletRequest req,
+			HttpServletResponse resp) {
+		return bookItemRepository.save(bookItem);
+	}
+	
+	@GetMapping(value = "/delete-by-code/{code}")
+	public Integer deleteByCode(@PathVariable("code") String code) {
+		bookItemRepository.deleteById(code);
+		return 1;
 	}
 
 }
