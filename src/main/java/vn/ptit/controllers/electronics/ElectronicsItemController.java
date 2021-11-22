@@ -21,7 +21,6 @@ import vn.ptit.entities.electronics.Laptop;
 import vn.ptit.entities.electronics.Tivi;
 import vn.ptit.entities.electronics.MobilePhone;
 import vn.ptit.repositories.electronics.ElectronicsItemRepository;
-import vn.ptit.repositories.electronics.ImgElectronicsItemRepository;
 import vn.ptit.services.ElectronicsService;
 import vn.ptit.utils.FilterMap;
 
@@ -30,8 +29,6 @@ import vn.ptit.utils.FilterMap;
 public class ElectronicsItemController {
 	@Autowired
 	ElectronicsItemRepository electronicsItemRepository;
-	@Autowired
-	ImgElectronicsItemRepository imgElectronicsItemRepository;
 	@Autowired
 	ElectronicsService electronicsService;
 

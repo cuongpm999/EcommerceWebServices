@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.ptit.entities.book.BookItem;
 import vn.ptit.entities.electronics.ElectronicsItem;
 import vn.ptit.repositories.book.BookItemRepository;
-import vn.ptit.repositories.book.ImgBookItemRepository;
 import vn.ptit.services.BookService;
 import vn.ptit.utils.FilterMap;
 
@@ -27,9 +26,6 @@ public class BookItemController {
 
 	@Autowired
 	BookItemRepository bookItemRepository;
-
-	@Autowired
-	ImgBookItemRepository imgBookItemRepository;
 
 	@Autowired
 	BookService bookService;

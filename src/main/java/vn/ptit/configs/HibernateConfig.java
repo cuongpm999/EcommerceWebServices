@@ -37,9 +37,14 @@ public class HibernateConfig {
 	protected DataSource dataSource() {
 		HikariConfig dataSourceConfig = new HikariConfig();
 		dataSourceConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSourceConfig.setJdbcUrl("jdbc:mysql://group1-analysis-design.c41fdgtlmuma.us-east-2.rds.amazonaws.com:3306/ecommerce_project?useUnicode=true&characterEncoding=UTF-8");
+//		dataSourceConfig.setJdbcUrl("jdbc:mysql://group1-analysis-design.c41fdgtlmuma.us-east-2.rds.amazonaws.com:3306/ecommerce_project?useUnicode=true&characterEncoding=UTF-8");
+//		dataSourceConfig.setUsername("root");
+//		dataSourceConfig.setPassword("root123456");
+		
+		dataSourceConfig.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/ecommerce_project?useUnicode=true&characterEncoding=UTF-8");
 		dataSourceConfig.setUsername("root");
-		dataSourceConfig.setPassword("root123456");
+		dataSourceConfig.setPassword("root");
+		
 		return new HikariDataSource(dataSourceConfig);
 	}
 

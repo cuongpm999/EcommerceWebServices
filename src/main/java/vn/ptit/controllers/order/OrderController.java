@@ -85,6 +85,7 @@ public class OrderController {
 		if(helperOrder.getCustomerMember()!=null) {
 			order.setCustomer(helperOrder.getCustomerMember());
 			CustomerMember customerMember = helperOrder.getCustomerMember();
+			customerMember.setPoint(order.getPayment().getTotalMoney()*10/100);
 			customerMemberRepository.save(customerMember);
 		}
 		if(helperOrder.getCustomerNew()!=null) {
