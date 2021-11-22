@@ -19,9 +19,9 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
-	@Column(name = "Username", nullable = false, length = 255)
+	@Column(name = "Username", length = 255)
 	private String username;
-	@Column(name = "Password", nullable = false, length = 255)
+	@Column(name = "Password", length = 255)
 	private String password;
 	
 	@JsonBackReference
